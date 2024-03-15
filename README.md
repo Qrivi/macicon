@@ -27,7 +27,7 @@ because `iconsur` stopped working in March 2024). In contrast to `iconsur`, `mac
 
 | Option            | Required | Description                                                                                                             |
 | ----------------- | -------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `<app-path>`      | yes      | Path to the app for which you want to change the icon, e.g., /Applications/Foobar.app. Only supports macOS apps.        |
+| `<app-path>`      | yes      | Path to the app for which you want to change the icon, e.g., `/Applications/Foobar.app`. Only supports macOS apps.        |
 | `-l`, `--local`   | no       | Flag indicating _not_ to search for an equivalent iOS app. Automatically activated when `--input` is set.               |
 | `-k`, `--keyword` | no       | Custom keywords to use when searching for an equivalent iOS app. Defaults to the app's name.                            |
 | `-r`, `--region`  | no       | ISO-2A country code specifying the iOS app catalog to query. Defaults to `US`.                                          |
@@ -48,7 +48,7 @@ provide a square image.
 
 | Option       | Required | Description                                                                                                      |
 | ------------ | -------- | ---------------------------------------------------------------------------------------------------------------- |
-| `<app-path>` | yes      | Path to the app for which you want to change the icon, e.g., /Applications/Foobar.app. Only supports macOS apps. |
+| `<app-path>` | yes      | Path to the app for which you want to change the icon, e.g., `/Applications/Foobar.app`. Only supports macOS apps. |
 
 ### `macicon cache`
 

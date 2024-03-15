@@ -1,6 +1,7 @@
 import os from "node:os";
 import { $ } from "bun";
 import Jimp from "jimp";
+import maskPath from "../assets/mask.png";
 import { ITunesSearchResponse, type IconMode } from "./types";
 
 interface CleanAppPathArgs {
@@ -100,7 +101,7 @@ export const generateCustomIcon = async (args: GenerateCustomIconArgs) => {
       const imageSize = (iconSize - iconPadding * 2) * scale; // Size of the image inside the icon
       const imagePosition = (iconSize - imageSize) / 2 - iconPadding; // Offset to center image inside the icon
 
-      const maskBuffer = await Bun.file("assets/mask.png").arrayBuffer();
+      const maskBuffer = await Bun.file(maskPath).arrayBuffer();
       const imageBuffer = await Bun.file(pngPath).arrayBuffer();
       const mask = await Jimp.read(Buffer.from(maskBuffer));
       const image = await Jimp.read(Buffer.from(imageBuffer));
@@ -141,7 +142,7 @@ export const generateCustomIcon = async (args: GenerateCustomIconArgs) => {
     await $`sudo rm -f "${os.tmpdir()}/dev.qrivi.macicon/*"`;
   } catch (_) {
     console.error("\nCould not process input!\n");
-    console.log("Please make sure the input is a valid image file");
+    console.log("Make sure the input is a valid image file");
     process.exit(1);
   }
 };

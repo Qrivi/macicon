@@ -1,9 +1,9 @@
 {
   "name": "macicon",
   "description": "Fast macOS-styled app icon generator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
-  "module": "cli.ts",
+  "module": "./src/cli.ts",
   "bin": {
     "macicon": "./src/index.ts"
   },
@@ -12,7 +12,8 @@
     "email": "code@qrivi.dev"
   },
   "scripts": {
-    "build": "rm -rf ./build; bun build ./src/cli.ts --compile --minify --outfile ./build/macicon && find . -name \"*.bun-build\" -delete",
+    "clean": "rm -rf ./build",
+    "build": "bun build ./src/cli.ts --compile --minify && mkdir -p build && mv ./src/cli ./build/macicon",
     "check": "biome check ./src",
     "check:apply": "biome check --apply ./src"
   },
@@ -21,7 +22,7 @@
     "@types/bun": "latest"
   },
   "peerDependencies": {
-    "bun": "^1.0.30",
+    "bun": "^1.0.31",
     "typescript": "^5.0.0"
   },
   "dependencies": {
