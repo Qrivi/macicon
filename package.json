@@ -1,7 +1,7 @@
 {
   "name": "macicon",
-  "description": "A simple CLI tool to generate an app icon that complies with macOS' design specs.",
-  "version": "0.0.69",
+  "description": "Fast macOS-styled app icon generator",
+  "version": "1.0.0",
   "type": "module",
   "module": "cli.ts",
   "bin": {
@@ -12,7 +12,6 @@
     "email": "code@qrivi.dev"
   },
   "scripts": {
-    "dev": "bun --watch run ./src/cli.ts -- set /Applications/Cyberduck.app",
     "build": "rm -rf ./build; bun build ./src/cli.ts --compile --minify --outfile ./build/macicon && find . -name \"*.bun-build\" -delete",
     "check": "biome check ./src",
     "check:apply": "biome check --apply ./src"

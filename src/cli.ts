@@ -34,7 +34,7 @@ program //
 program //
   .command("unset")
   .description("remove a custom icon from a specific app")
-  .argument("<app-path>", "path to app for which to remove its custom icon, e.g. /Applications/Xcode.app")
+  .argument("<app-path>", "path to app for which to remove its custom icon, e.g. /Applications/Foobar.app")
   .action(async (appPath: string) => {
     verifyAppPath(appPath);
     await removeCustomIcon({ appPath });
@@ -46,7 +46,7 @@ program //
 program //
   .command("set")
   .description("generate and set an icon for a specific app")
-  .argument("<app-path>", "path to app for which to change its icon, e.g. /Applications/Xcode.app")
+  .argument("<app-path>", "path to app for which to change its icon, e.g. /Applications/Foobar.app")
   .option("-l, --local", "flag to create an icon locally (skip looking up an equivalent iOS app icon)")
   .option("-k, --keyword <string>", "custom keywords to look up an iOS app (default: the app's name)")
   .option("-r, --region <code>", "ISO-2A country code for the App Store to query (default: 'US')")

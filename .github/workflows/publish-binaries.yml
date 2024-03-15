@@ -1,0 +1,69 @@
+name: Build and publish binaries
+on:
+  push:
+    branches: [main]
+
+jobs:
+  create-release:
+    name: Create release
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    outputs:
+      release-id: ${{ steps.create-release.outputs.id }}
+
+    steps:
+      - name: Checkout codebase
+        id: checkout-codebase
+        uses: actions/checkout@v4.1.2
+        with:
+          ref: ${{ github.ref }}
+      - name: Extract version
+        id: extract-version
+        run: echo "version=$(jq -r '.version' package.json)" >> $GITHUB_OUTPUT
+      - name: Create release
+        id: create-release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: macicon ${{ steps.extract-version.outputs.version }}
+          tag_name: ${{ steps.extract-version.outputs.version }}
+          generate_release_notes: true
+
+  publish-binaries:
+    name: Publish binary
+    needs: create-release
+    timeout-minutes: 10
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-13, macos-14] # hacky, but macos-13 is x86_64, macos-14 is arm64
+
+    steps:
+      - name: Checkout codebase
+        id: checkout-codebase
+        uses: actions/checkout@v4.1.2
+        with:
+          ref: ${{ github.ref }}
+      - name: Setup Bun
+        id: setup-bun
+        uses: oven-sh/setup-bun@v1.2.0
+      - name: Install dependencies
+        id: install-dependencies
+        run: bun install
+      - name: Build binary
+        id: build-binary
+        run: bun run build
+      - name: Create package
+        id: create-package
+        run: |
+          cd build
+          CPU_ARCH=$(uname -m)
+          echo "CPU architecture: ${CPU_ARCH}"
+          tar -czf macicon-${CPU_ARCH}.tar.gz macicon
+          shasum -a 256 macicon-${CPU_ARCH}.tar.gz | cut -d ' ' -f 1 > macicon-${CPU_ARCH}.tar.gz.sha256
+      - name: Upload package
+        id: upload-package
+        uses: AButler/upload-release-assets@v3.0
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          release-id: ${{ needs.create-release.outputs.release-id }}
+          files: "build/macicon-*"
