@@ -12,7 +12,8 @@
     "email": "code@qrivi.dev"
   },
   "scripts": {
-    "build": "rm -rf ./build; bun build ./src/cli.ts --compile --minify --outfile ./build/macicon && find . -name \"*.bun-build\" -delete",
+    "clean": "rm -rf ./build",
+    "build": "bun build ./src/cli.ts --compile --minify && mkdir -p build && mv ./src/cli ./build/macicon",
     "check": "biome check ./src",
     "check:apply": "biome check --apply ./src"
   },
