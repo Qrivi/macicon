@@ -1,9 +1,9 @@
 {
   "name": "macicon",
   "description": "Fast macOS-styled app icon generator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
-  "module": "cli.ts",
+  "module": "./src/cli.ts",
   "bin": {
     "macicon": "./src/index.ts"
   },
@@ -21,7 +21,7 @@
     "@types/bun": "latest"
   },
   "peerDependencies": {
-    "bun": "^1.0.30",
+    "bun": "^1.0.31",
     "typescript": "^5.0.0"
   },
   "dependencies": {

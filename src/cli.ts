@@ -90,9 +90,9 @@ program //
 
     // If we were passed an input image, create a new icon from it
     if (options.input) {
-      console.log(`Generating new icon for ${appPath}, based on input image...`);
+      console.log(`\nGenerating new icon for ${appPath}, based on input image...`);
 
-      const buffer = await (options.input.startsWith("http")
+      const buffer = await (options.input.startsWith("http://") || options.input.startsWith("https://")
         ? await fetch(options.input)
         : Bun.file(options.input)
       ).arrayBuffer();

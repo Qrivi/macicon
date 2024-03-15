@@ -141,7 +141,7 @@ export const generateCustomIcon = async (args: GenerateCustomIconArgs) => {
     await $`sudo rm -f "${os.tmpdir()}/dev.qrivi.macicon/*"`;
   } catch (_) {
     console.error("\nCould not process input!\n");
-    console.log("Please make sure the input is a valid image file");
+    console.log("Make sure the input is a valid image file");
     process.exit(1);
   }
 };
