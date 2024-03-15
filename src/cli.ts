@@ -1,6 +1,5 @@
 #! /usr/bin/env bun
 
-import os from "node:os";
 import { $ } from "bun";
 import { program } from "commander";
 import { description, name, version } from "../package.json";
