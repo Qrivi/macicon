@@ -1,6 +1,6 @@
 import os from "node:os";
 import { $ } from "bun";
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 import maskPath from "../assets/mask.png";
 import { ITunesSearchResponse, type IconMode } from "./types";
 
@@ -106,12 +106,14 @@ export const generateCustomIcon = async (args: GenerateCustomIconArgs) => {
       const mask = await Jimp.read(Buffer.from(maskBuffer));
       const image = await Jimp.read(Buffer.from(imageBuffer));
 
-      const squaredImage = (await Jimp.create(iconSize, iconSize)).composite(
-        mode === "contain" ? image.contain(imageSize, imageSize) : image.cover(imageSize, imageSize),
+      const squaredImage = new Jimp({ width: iconSize, height: iconSize }).composite(
+        mode === "contain"
+          ? image.contain({ w: imageSize, h: imageSize })
+          : image.cover({ w: imageSize, h: imageSize }),
         imagePosition,
         imagePosition,
       );
-      const processedIcon = (await Jimp.create(iconSize, iconSize, `#${color}`)).composite(
+      const processedIcon = new Jimp({ width: iconSize, height: iconSize, color: `#${color}` }).composite(
         squaredImage,
         iconPadding,
         iconPadding,
